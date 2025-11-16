@@ -1,15 +1,18 @@
 import gradio as gr
+from mylib.calculator import add
 
 
-def greet(phrase):
-    greeting = f"Hello {phrase}!"
-    return greeting
+def calculate_sum(num1, num2):
+    result = add(num1, num2)
+    return result
 
 
 with gr.Blocks() as demo:
-    name = gr.Textbox(label="Name")
-    output = gr.Textbox(label="Output Box")
-    greet_btn = gr.Button("Greet")
-    greet_btn.click(fn=greet, inputs=name, outputs=output)
+    with gr.Row():
+        number1 = gr.Number(label="First Number")
+        number2 = gr.Number(label="Second Number")
+    output = gr.Number(label="Sum")
+    calc_btn = gr.Button("Calculate Sum")
+    calc_btn.click(fn=calculate_sum, inputs=[number1, number2], outputs=output)
 
 demo.launch()
